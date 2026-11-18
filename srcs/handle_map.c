@@ -83,10 +83,10 @@ char **handle_map(char **str, t_data *data)
     if (!ft_new_strchr(str[1], ".ber"))
         return (ft_error("Error!\nWrong map format.\n"));
     fd = open(str[1], O_RDONLY);
-    if (fd > 0)
-        data->map = parse_map(fd, data);
-    else
+    if (fd < 0)
         return (ft_error("Error!\nFailed to open the File.\n"));
+    data->map = parse_map(fd, data);
+    close(fd);
     if ((data->content.count_c == 0 || data->content.count_e != 1 || data->content.count_p != 1) && data->map != NULL)
     {
         ft_free_map(data);
