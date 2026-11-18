@@ -85,7 +85,18 @@ int main(int argc, char **argv)
         ft_error_int("Error!\nCould not connect to the display.\n");
         return (1);
     }
-    set_img(&data);
-    handle_rendering(&data);
+    data.mlx_win = NULL;
+    if (!set_img(&data))
+    {
+        free_game(&data);
+        ft_error_int("Error!\nCould not load images (run from the project folder).\n");
+        return (1);
+    }
+    if (!handle_rendering(&data))
+    {
+        free_game(&data);
+        ft_error_int("Error!\nCould not open the window.\n");
+        return (1);
+    }
     return (0);
 }

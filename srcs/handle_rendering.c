@@ -55,18 +55,19 @@ void render(t_data *data)
     render_others(data);
 }
 
-void handle_rendering(t_data *data)
+int handle_rendering(t_data *data)
 {
     data->mlx_win = mlx_new_window(data->mlx_ptr,
                                    (data->img.width * data->width), (data->img.height * data->height),
                                    "So_Long");
     if (!data->mlx_win)
-        return;
+        return (0);
     render(data);
     mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &keypress, data);
     mlx_hook(data->mlx_win, 17, 0, &end, data);
     mlx_loop(data->mlx_ptr);
     end(data);
+    return (1);
 }
 
 void print_img(t_data *data, void *img, int x, int y)

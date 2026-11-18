@@ -68,7 +68,8 @@ int ft_new_strchr(char *str, char *cmp);
 
 /*Set*/
 void set_contents(t_cnt *content);
-void set_img(t_data *data);
+int set_img(t_data *data);
+void free_game(t_data *data);
 
 /*Handle_map*/
 char **handle_map(char **str, t_data *data);
@@ -84,7 +85,7 @@ int ft_check_col(char *map_line, char wall, t_data *data);
 int ft_check_other(t_data *data, t_cnt *content, int i);
 
 /*Handle Rendering*/
-void handle_rendering(t_data *data);
+int handle_rendering(t_data *data);
 void render(t_data *data);
 void render_background(t_data *data);
 void render_others(t_data *data);
