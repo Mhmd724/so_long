@@ -28,6 +28,8 @@ make
 ./so_long maps/map_correct.ber
 ```
 
+Run it from the project folder: the sprites are loaded from `./assets/`.
+
 ## Controls
 
 | Key                 | Action    |
@@ -67,26 +69,36 @@ Example:
 1111111111111111111111
 ```
 
-The `maps/` folder also has a set of invalid maps (`map_not_correct_*.ber`, `empty_map.ber`) used to test error handling.
+The `maps/` folder has two valid maps (`map_correct.ber`, `map_correct_maze.ber`) and a set of invalid ones (`map_not_correct_*.ber`, `empty_map.ber`), one for each error case below.
 
 ## Error handling
 
-The program prints an error message and exits when:
+On any error the program prints `Error` followed by an explicit message on stderr, then exits with code `1`:
+
+```
+Error
+Collectibles or Exit not reachable.
+```
+
+It fails when:
 
 - it isn't given exactly one map argument
 - the map file doesn't have the `.ber` extension, or can't be opened
-- the map is empty
+- the map is empty, or contains an empty line
 - the map isn't rectangular
 - the map isn't fully enclosed by walls
 - there isn't exactly one player and one exit, or there are no collectibles
 - the map contains a character other than `1`, `0`, `P`, `E`, `C`
-- a collectible can't be reached
+- a collectible or the exit can't be reached from the player
+- there is no display, the sprites can't be loaded, or the window can't be opened
+
+Reachability is checked with a flood fill from the player. The exit stops the fill, since the player can't walk onto it before collecting everything.
 
 ## How it works
 
-1. **Init** – `mlx_init` connects to the X server and the map characters are set up.
-2. **Parse** – the `.ber` file is read into a buffer, split into lines, and validated (shape, walls, contents, reachability).
-3. **Setup** – map size is computed and the XPM sprites in `assets/` are loaded.
+1. **Parse** – the `.ber` file is read into a buffer, checked for empty lines, split into rows, and validated (shape, walls, contents, reachability). A bad map is rejected before any window is opened.
+2. **Init** – `mlx_init` connects to the X server.
+3. **Setup** – the XPM sprites in `assets/` are loaded.
 4. **Render** – the background (walls and floor) is drawn first, then the player, exit and collectibles.
 5. **Loop** – `mlx_hook` handles key presses and the window close button, and `mlx_loop` keeps the game running.
 
