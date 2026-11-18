@@ -68,20 +68,24 @@ int main(int argc, char **argv)
     t_data data;
 
     if (argc != 2)
-        return (ft_error_int("Error!\nThis program takes 1 argument.\n"));
-    else
     {
-        data.count = 0;
-        data.mlx_ptr = mlx_init();
-        set_contents(&(data.content));
-        data.map = handle_map(argv, &data);
-        if (!data.map)
-            end(&data);
-        else
-        {
-            set_img(&data);
-            handle_rendering(&data);
-        }
+        ft_error_int("Error!\nThis program takes 1 argument.\n");
+        return (1);
     }
-    return (1);
+    data.count = 0;
+    data.mlx_ptr = NULL;
+    set_contents(&(data.content));
+    data.map = handle_map(argv, &data);
+    if (!data.map)
+        return (1);
+    data.mlx_ptr = mlx_init();
+    if (!data.mlx_ptr)
+    {
+        ft_free_map(&data);
+        ft_error_int("Error!\nCould not connect to the display.\n");
+        return (1);
+    }
+    set_img(&data);
+    handle_rendering(&data);
+    return (0);
 }
