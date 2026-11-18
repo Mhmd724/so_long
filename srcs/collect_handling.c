@@ -88,7 +88,7 @@ int check_path(t_data *data)
 
     copy = copy_map(data);
     if (!copy)
-        return (ft_error_int("Error!\nMemory allocation failed.\n"));
+        return (ft_error_int("Error\nMemory allocation failed.\n"));
     i = 0;
     while (copy[i] && !ft_strchr(copy[i], data->content.player))
         i++;
@@ -97,6 +97,6 @@ int check_path(t_data *data)
     unreached = has_unreached(copy, data);
     free_copy(copy);
     if (unreached)
-        return (ft_error_int("Error!\nCollectibles or Exit not reachable.\n"));
+        return (ft_error_int("Error\nCollectibles or Exit not reachable.\n"));
     return (1);
 }

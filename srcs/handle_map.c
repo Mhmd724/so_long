@@ -25,7 +25,7 @@ char *get_map(int fd)
         free(line);
     }
     if (buff == NULL)
-        return (ft_error("Error!\nThe map is empty.\n"));
+        return (ft_error("Error\nThe map is empty.\n"));
     return (buff);
 }
 
@@ -51,7 +51,7 @@ static char **split_map(char *map)
     if (map[0] == '\n' || ft_strnstr(map, "\n\n", ft_strlen(map)))
     {
         free(map);
-        return (ft_error("Error!\nEmpty line in the map.\n"));
+        return (ft_error("Error\nEmpty line in the map.\n"));
     }
     lines = ft_split(map, '\n');
     free(map);
@@ -96,16 +96,16 @@ char **handle_map(char **str, t_data *data)
     fd = 0;
     data->map = NULL;
     if (!ft_new_strchr(str[1], ".ber"))
-        return (ft_error("Error!\nWrong map format.\n"));
+        return (ft_error("Error\nWrong map format.\n"));
     fd = open(str[1], O_RDONLY);
     if (fd < 0)
-        return (ft_error("Error!\nFailed to open the File.\n"));
+        return (ft_error("Error\nFailed to open the File.\n"));
     data->map = parse_map(fd, data);
     close(fd);
     if ((data->content.count_c == 0 || data->content.count_e != 1 || data->content.count_p != 1) && data->map != NULL)
     {
         ft_free_map(data);
-        return (ft_error("Error!\nNeed 1 Player/Exit and at least 1 object.\n"));
+        return (ft_error("Error\nNeed 1 Player/Exit and at least 1 object.\n"));
     }
     if (data->map != NULL && !check_path(data))
         return (ft_free_map(data));

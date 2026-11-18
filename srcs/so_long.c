@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 
     if (argc != 2)
     {
-        ft_error_int("Error!\nThis program takes 1 argument.\n");
+        ft_error_int("Error\nThis program takes 1 argument.\n");
         return (1);
     }
     data.count = 0;
@@ -82,20 +82,20 @@ int main(int argc, char **argv)
     if (!data.mlx_ptr)
     {
         ft_free_map(&data);
-        ft_error_int("Error!\nCould not connect to the display.\n");
+        ft_error_int("Error\nCould not connect to the display.\n");
         return (1);
     }
     data.mlx_win = NULL;
     if (!set_img(&data))
     {
         free_game(&data);
-        ft_error_int("Error!\nCould not load images (run from the project folder).\n");
+        ft_error_int("Error\nCould not load images (run from the project folder).\n");
         return (1);
     }
     if (!handle_rendering(&data))
     {
         free_game(&data);
-        ft_error_int("Error!\nCould not open the window.\n");
+        ft_error_int("Error\nCould not open the window.\n");
         return (1);
     }
     return (0);

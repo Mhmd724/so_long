@@ -40,7 +40,7 @@ int ft_check_format(char **map)
         while (map[i][j])
             j++;
         if (j != get_width)
-            return (ft_error_int("Error!\nMap must be rectangular or square.\n"));
+            return (ft_error_int("Error\nMap must be rectangular or square.\n"));
         i++;
     }
     return (1);
@@ -54,7 +54,7 @@ int ft_check_line(char *map_line, t_data *data)
     while (map_line[i])
     {
         if (map_line[i] != data->content.wall)
-            return (ft_error_int("Error!\nMap line not closed.\n"));
+            return (ft_error_int("Error\nMap line not closed.\n"));
         i++;
     }
     return (1);
@@ -68,7 +68,7 @@ int ft_check_col(char *map_line, char wall, t_data *data)
     while (map_line[i])
         i++;
     if (map_line[0] != wall || map_line[i - 1] != wall)
-        return (ft_error_int("Error!\nMap column not closed.\n"));
+        return (ft_error_int("Error\nMap column not closed.\n"));
     data->width = i;
     return (1);
 }
@@ -81,9 +81,9 @@ int ft_check_other(t_data *data, t_cnt *content, int i)
     while (data->map[i][j])
     {
         if (content->count_e > 1 || content->count_p > 1)
-            return (ft_error_int("Error!\nWrong number of players or exit.\n"));
+            return (ft_error_int("Error\nWrong number of players or exit.\n"));
         if (data->map[i][j] != content->wall && data->map[i][j] != content->ground && data->map[i][j] != content->exit && data->map[i][j] != content->player && data->map[i][j] != content->collect)
-            return (ft_error_int("Error!\nUnknown symbol(s) in map.\n"));
+            return (ft_error_int("Error\nUnknown symbol(s) in map.\n"));
         j++;
     }
     return (1);
