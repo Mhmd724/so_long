@@ -44,6 +44,20 @@ void *ft_free_map(t_data *data)
     return (NULL);
 }
 
+static char **split_map(char *map)
+{
+    char **lines;
+
+    if (map[0] == '\n' || ft_strnstr(map, "\n\n", ft_strlen(map)))
+    {
+        free(map);
+        return (ft_error("Error!\nEmpty line in the map.\n"));
+    }
+    lines = ft_split(map, '\n');
+    free(map);
+    return (lines);
+}
+
 char **parse_map(int fd, t_data *data)
 {
     char *map;
@@ -52,8 +66,9 @@ char **parse_map(int fd, t_data *data)
     map = get_map(fd);
     if (!map)
         return (NULL);
-    data->map = ft_split(map, '\n');
-    free(map);
+    data->map = split_map(map);
+    if (!data->map)
+        return (NULL);
     ft_count_content(data);
     if (!ft_check_format(data->map))
         return (ft_free_map(data));
