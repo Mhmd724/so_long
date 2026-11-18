@@ -86,10 +86,7 @@ char **handle_map(char **str, t_data *data)
     if (fd > 0)
         data->map = parse_map(fd, data);
     else
-    {
-        // ft_free_map(data);
         return (ft_error("Error!\nFailed to open the File.\n"));
-    }
     if ((data->content.count_c == 0 || data->content.count_e != 1 || data->content.count_p != 1) && data->map != NULL)
     {
         ft_free_map(data);
