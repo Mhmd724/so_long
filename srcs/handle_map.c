@@ -95,5 +95,7 @@ char **handle_map(char **str, t_data *data)
         ft_free_map(data);
         return (ft_error("Error!\nNeed 1 Player/Exit and at least 1 object.\n"));
     }
+    if (data->map != NULL && !check_path(data))
+        return (ft_free_map(data));
     return (data->map);
 }

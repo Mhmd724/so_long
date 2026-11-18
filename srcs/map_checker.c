@@ -84,11 +84,6 @@ int ft_check_other(t_data *data, t_cnt *content, int i)
             return (ft_error_int("Error!\nWrong number of players or exit.\n"));
         if (data->map[i][j] != content->wall && data->map[i][j] != content->ground && data->map[i][j] != content->exit && data->map[i][j] != content->player && data->map[i][j] != content->collect)
             return (ft_error_int("Error!\nUnknown symbol(s) in map.\n"));
-        if (data->map[i][j] == content->collect ||
-            data->map[i][j] == content->player ||
-            data->map[i][j] == content->exit)
-            if (!check_around(data, i, j))
-                return (0);
         j++;
     }
     return (1);

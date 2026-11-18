@@ -102,5 +102,5 @@ int end(t_data *data);
 int keypress(int keysym, t_data *data);
 
 /*Collect_handling*/
-int check_around(t_data *data, int i, int j);
+int check_path(t_data *data);
 #endif
